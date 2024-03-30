@@ -9,6 +9,7 @@ from discord.ext import tasks
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
+REPLAY_CHANNEL = int(os.getenv('REPLAY_CHANNEL_ID'))
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -38,7 +39,7 @@ async def on_message(message):
 @tasks.loop(seconds=10)
 async def replay_message():
     print('attempting print')
-    channel = client.get_channel(1223735297028784248)
+    channel = client.get_channel(REPLAY_CHANNEL)
     replay_code = ''.join(random.choices(string.ascii_uppercase, k=6))
     replay_code_message = f"Someone take a look at this replay code, my teammates were so bad - {replay_code}"
     await channel.send(replay_code_message)

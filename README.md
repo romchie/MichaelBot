@@ -1,1 +1,1 @@
-# BeterBot
+# Michael Bot

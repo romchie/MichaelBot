@@ -1,9 +1,11 @@
+# this will be a michael zombie mystery box simulator
+# still early development
+
 import random
 import time
 
 import discord
 
-# Early development
 class MysteryBox:
     def __init__(self, client):
         self.client = client
@@ -11,6 +13,4 @@ class MysteryBox:
 
     def spinBox(self):
         return random.choice(self.items)
-    
-
     

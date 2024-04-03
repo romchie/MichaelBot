@@ -6,20 +6,25 @@ import discord
 from dotenv import load_dotenv
 from discord.ext import tasks
 
-from MysteryBox import MysteryBox
+from bin.MysteryBox import MysteryBox
 
+# load env variables
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 REPLAY_CHANNEL = int(os.getenv('REPLAY_CHANNEL_ID'))
 LUKIE = int(os.getenv('LUKIE_ID'))
 GUILD_ID = int(os.getenv('GUILD_ID'))
 
+# initialize bot
 intents = discord.Intents.default()
 intents.message_content = True
 client = discord.Client(intents=intents)
 tree = discord.app_commands.CommandTree(client)
 
 MYSTERY_BOX = MysteryBox(client)
+COSTCO_GIFS = ['https://tenor.com/view/costco-guys-costco-chicken-bake-big-justice-double-chunk-gif-18126332061581576403', 'https://tenor.com/view/costco-guys-costco-double-chunk-chocolate-cookie-double-chunk-double-chunk-chocolate-gif-11939958218838433953']
+
+
 
 ### ON READY ###
 @client.event
@@ -27,6 +32,16 @@ async def on_ready():
     replay_message.start()
     await tree.sync(guild=discord.Object(id=GUILD_ID))
     print(f'{client.user} has connected to Discord!')
+
+### ON MESSAGE ###
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return
+    elif 'beter' in message.content.lower():
+        await message.channel.send('Did someone say Beter? :eyes:')
+    elif 'costco' in message.content.lower() or message.author.id == LUKIE:
+        await message.reply(random.choice(COSTCO_GIFS))
 
 
 ### SLASH COMMANDS ###
@@ -39,20 +54,7 @@ async def spin(interaction):
     item = MYSTERY_BOX.spinBox()
     await interaction.response.send_message("Spinning...")
     time.sleep(.5)
-    await interaction.channel.send(f'You spun a {item}!')
-
-
-
-### ON MESSAGE ###
-@client.event
-async def on_message(message):
-    if message.author == client.user:
-        return
-    elif 'beter' in message.content.lower():
-        await message.channel.send('Did someone say Beter? :eyes:')
-    elif 'costco' in message.content.lower() or message.author.id == LUKIE:
-        costco_gifs = ['https://tenor.com/view/costco-guys-costco-chicken-bake-big-justice-double-chunk-gif-18126332061581576403', 'https://tenor.com/view/costco-guys-costco-double-chunk-chocolate-cookie-double-chunk-double-chunk-chocolate-gif-11939958218838433953']
-        await doReply(message, random.choice(costco_gifs))
+    await interaction.channel.send(f'You got a {item}!')
 
 
 @tasks.loop(hours=11.5)
@@ -65,11 +67,6 @@ async def replay_message():
         await channel.send(replay_code_message)
 
 
-### Helper Functions ###
-def doReply(msg, reply):
-    reply_to = msg.channel.fetch_message(msg.id)
-    reply_to.reply(reply)
 
-
-
+# keep at bottom of file
 client.run(TOKEN)

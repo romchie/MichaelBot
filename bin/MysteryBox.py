@@ -45,7 +45,7 @@ class MysteryBox:
                 user['mpoints'] = 0
         self.writeDataBase(db)
 
-    def addUser(self, user, database):
+    def addUser(self, user: discord.User, database):
         if str(user) not in database['users']:
             database['users'][str(user)] = {
                 "id": user.id,
@@ -53,7 +53,7 @@ class MysteryBox:
                 "guns": [],
             }
 
-    def spinBox(self, user):
+    def spinBox(self, user: discord.User):
         db = self.readDataBase()
         self.addUser(user, db)
         item = random.choice(self.items)
@@ -63,7 +63,7 @@ class MysteryBox:
         self.writeDataBase(db)
         return f'You rolled a {item}!'
     
-    def showInventory(self, user):
+    def showInventory(self, user: discord.User):
         db = self.readDataBase()
         if str(user) not in db['users'] or len(db['users'][str(user)]['guns']) == 0:
             return f'ya shit\'s EMPTY'
@@ -73,13 +73,13 @@ class MysteryBox:
             gun_list += f'• {gun}\n'
         return f'{str(user)}\'s Inventory:\n{gun_list}'
 
-    def showMichaelPoints(self, user):
+    def getMichaelPoints(self, user: discord.User):
         db = self.readDataBase()
         self.addUser(user, db)
         michael_points = db['users'][str(user)]['mpoints']
-        return f'You have {michael_points} Michael Points'
+        return michael_points
     
-    def updateMichaelPoints(self, user, amount):
+    def updateMichaelPoints(self, user: discord.User, amount: int):
         db = self.readDataBase()
         self.addUser(user, db)
         db['users'][str(user)]['mpoints'] += amount

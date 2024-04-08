@@ -29,17 +29,27 @@ class MysteryBox:
         with open(self.INVENTORY_FILE, 'w') as file:
             json.dump(data, file, indent=4)
 
-    def clearDataBase(self):
+    def clearDataBase(self, t='all'):
+        """Types: `all`, `guns`, `mpoints`"""
         db = self.readDataBase()
-        db['users'] = {}
+        if t == 'all':
+            print('clearing all')
+            db['users'] = {}
+        elif t == 'guns':
+            print('clearing guns')
+            for user in db['users']:
+                db['users'][user]['guns'] = []
+        elif t == 'mpoints':
+            print('clearing michael points')
+            for user in db['users']:
+                user['mpoints'] = 0
         self.writeDataBase(db)
 
     def addUser(self, user, database):
-        user_id = user.id
-        username = str(user)
-        if username not in database['users']:
-            database['users'][username] = {
-                "id": user_id,
+        if str(user) not in database['users']:
+            database['users'][str(user)] = {
+                "id": user.id,
+                "mpoints": 0,
                 "guns": [],
             }
 
@@ -61,5 +71,22 @@ class MysteryBox:
         gun_list = ''
         for gun in user_guns:
             gun_list += f'• {gun}\n'
-        return f'{str(user)}\'s Inventory:\n{gun_list}' 
+        return f'{str(user)}\'s Inventory:\n{gun_list}'
+
+    def showMichaelPoints(self, user):
+        db = self.readDataBase()
+        self.addUser(user, db)
+        michael_points = db['users'][str(user)]['mpoints']
+        return f'You have {michael_points} Michael Points'
+    
+    def updateMichaelPoints(self, user, amount):
+        db = self.readDataBase()
+        self.addUser(user, db)
+        db['users'][str(user)]['mpoints'] += amount
+        self.writeDataBase(db)
+        if amount > 0:
+            return f'+{amount} Michael Points'
+        elif amount < 0:
+            return f'{amount} Michael Points'
+
     

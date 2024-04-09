@@ -35,12 +35,13 @@ COSTCO_GIFS = ['https://tenor.com/view/costco-guys-costco-chicken-bake-big-justi
 async def on_ready():
     await tree.sync()
     # for guild in client.guilds:
-    #     await tree.sync(guild=guild)
-
+        # await tree.sync(guild=guild)
     if sys.argv[1] == 'True': # if makefile NOTIFY == 'True' (default)
         # replayMessage.start()
-        michaelPointsDrop.start()
         await client.get_channel(MAIN_CHANNEL).send('i\'m alive :)')
+    michaelPointsDrop.start()
+
+    await client.change_presence(status=discord.Status.online, activity=discord.CustomActivity(name='I\'m Michael'))
     print(f'{client.user} has connected to Discord!')
     
 
@@ -61,6 +62,8 @@ async def on_message(message: discord.Message):
         split_up = full_str.split()
         if split_up[-1] == 'michael':
             await message.channel.send(full_str.replace('michael', str(message.author)))
+    if 'hello bro' == message.content.lower():
+        await message.channel.send('hello bro')
 
 @client.event
 async def on_reaction_add(reaction: discord.Reaction, user: discord.User):
@@ -70,18 +73,18 @@ async def on_reaction_add(reaction: discord.Reaction, user: discord.User):
 
 
 
+# Might need to put this under command function defs
+# client.tree.clear_commands(guild=ctx.guild)
+# await client.tree.sync(guild=ctx.guild)
+
 ### Slash Commands ###
 @app_commands.checks.cooldown(1, 10)
 @tree.command(name='ping', description='This is a test command')
 async def ping(ctx: discord.Interaction):
-    # client.tree.clear_commands(guild=ctx.guild)
-    # await client.tree.sync(guild=ctx.guild)
     await ctx.response.send_message('pong!')
 
 @tree.command(name='headphones', description='Check out my new headphones!')
 async def headphones(ctx: discord.Interaction):
-    # client.tree.clear_commands(guild=ctx.guild)
-    # await client.tree.sync(guild=ctx.guild)
     if MYSTERY_BOX.getMichaelPoints(ctx.user) >= 50:
         await ctx.response.send_message(file=discord.File('assets/headphones.jpg'), content=f'*{MYSTERY_BOX.updateMichaelPoints(ctx.user, -50)}*')
     else:
@@ -90,23 +93,25 @@ async def headphones(ctx: discord.Interaction):
 @app_commands.checks.cooldown(1, 5)
 @tree.command(name='spin', description='Spin the mystery box')
 async def spin(ctx: discord.Interaction):
-    # client.tree.clear_commands(guild=ctx.guild)
-    # await client.tree.sync(guild=ctx.guild)
-    await ctx.response.send_message(MYSTERY_BOX.spinBox(ctx.user))
+    await ctx.response.send_message(MYSTERY_BOX.spinBox(ctx.user), delete_after=10)
 
 @app_commands.checks.cooldown(1, 5)
-@tree.command(name='inventory', description='Display your inventory')
-async def inventory(ctx: discord.Interaction):
-    # client.tree.clear_commands(guild=ctx.guild)
-    # await client.tree.sync(guild=ctx.guild)
-    await ctx.response.send_message(MYSTERY_BOX.showInventory(ctx.user))
+@tree.command(name='inventory', description='Display yours or another user\'s inventory with /inventory <user>')
+async def inventory(ctx: discord.Interaction, user: discord.User=None):
+    if user == None:
+        user = ctx.user
+    await ctx.response.send_message(MYSTERY_BOX.showInventory(user), delete_after=60)
 
 @app_commands.checks.cooldown(1, 5)
 @tree.command(name='mp', description='Check how many Michael Points you have')
 async def mp(ctx: discord.Interaction):
-    # client.tree.clear_commands(guild=None)
-    # await client.tree.sync(guild=None)
     await ctx.response.send_message(f'You have {MYSTERY_BOX.getMichaelPoints(ctx.user)} Michael Points')
+
+# check if added to command tree
+@app_commands.checks.cooldown(1, 5)
+@tree.command(name='leaderboard', description='View the Michael Points Leaderboard')
+async def leaderboard(ctx: discord.Interaction):
+    await ctx.response.send_message(f'{MYSTERY_BOX.showLeaderboard()}', delete_after=60)
 
 
         
@@ -115,6 +120,7 @@ async def mp(ctx: discord.Interaction):
 async def cooldown_error(ctx: discord.Interaction, error: app_commands.AppCommandError):
     if isinstance(error, app_commands.CommandOnCooldown):
         await ctx.response.send_message(f'Stop fuckin spamming! Ay I\'m Michael *(cooldown for {round(error.retry_after, 2)}s)*', ephemeral=True)
+
 
 
 ### Looped Tasks ###
@@ -127,20 +133,22 @@ async def replayMessage():
         replay_code_message = f'Someone take a look at this replay code, my teammates were so bad: {replay_code}'
         await channel.send(replay_code_message)
 
-@tasks.loop(minutes=20)
+@tasks.loop(minutes=5)
 async def michaelPointsDrop():
     chance = random.randint(1, 10)
     if chance <= 5:
         channel = client.get_channel(MAIN_CHANNEL)
-        msg = await channel.send(content=f'Quick! First person to react gets 10 michael points! *(60 seconds!)*')
-        await msg.add_reaction('\U00002705')
+        num_points = random.randint(10, 50)
+        notif = await channel.send(content=f'Quick! First person to react gets {num_points} Michael Points! *(60 seconds!)*')
+        await notif.add_reaction('\U00002705')
 
-        def check(reaction, user):
+        def check(reaction: discord.Reaction, user: discord.User):
             return reaction.emoji == '\U00002705' and user != client.user
+        
         try:
             reaction, user = await client.wait_for('reaction_add', timeout=60.0, check=check)
-            await channel.send(f'{user} claimed 10 michael points!')
-            MYSTERY_BOX.updateMichaelPoints(user, 10)
+            await channel.send(f'{user.mention} claimed {num_points} Michael Points!')
+            MYSTERY_BOX.updateMichaelPoints(user, num_points)
         except asyncio.TimeoutError:
             await channel.send(f'Nobody reacted in time...')
 

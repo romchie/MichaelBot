@@ -2,6 +2,8 @@ import random
 import time
 import discord
 import json
+from operator import itemgetter
+import pprint
 
 from pysondb import db
 
@@ -21,15 +23,15 @@ class MysteryBox:
         self.melees = ['Knife', 'Bowie Knife', 'Oar', 'Frying Pan']
         self.items = self.assault_rifles + self.carbines + self.smgs + self.lmgs + self.shotguns + self.snipers + self.side_arms + self.specials + self.melees
 
-    def readDataBase(self):
+    def readDataBase(self) -> any:
         with open(self.INVENTORY_FILE, 'r') as file:
             return json.load(file)
         
-    def writeDataBase(self, data):
+    def writeDataBase(self, data) -> None:
         with open(self.INVENTORY_FILE, 'w') as file:
             json.dump(data, file, indent=4)
 
-    def clearDataBase(self, t='all'):
+    def clearDataBase(self, t:str='all'):
         """Types: `all`, `guns`, `mpoints`"""
         db = self.readDataBase()
         if t == 'all':
@@ -45,7 +47,7 @@ class MysteryBox:
                 user['mpoints'] = 0
         self.writeDataBase(db)
 
-    def addUser(self, user: discord.User, database):
+    def addUser(self, user: discord.User, database) -> None:
         if str(user) not in database['users']:
             database['users'][str(user)] = {
                 "id": user.id,
@@ -53,40 +55,56 @@ class MysteryBox:
                 "guns": [],
             }
 
-    def spinBox(self, user: discord.User):
+    def spinBox(self, user: discord.User) -> str:
         db = self.readDataBase()
         self.addUser(user, db)
         item = random.choice(self.items)
         if item in db['users'][str(user)]['guns']:
-            return f'You\'ve already GYAT a {item}'
+            return f'You rolled a {item}... but you\'ve already GYAT one!'
         db['users'][str(user)]['guns'].append(item)
         self.writeDataBase(db)
         return f'You rolled a {item}!'
     
-    def showInventory(self, user: discord.User):
+    def showInventory(self, user: discord.User) -> str:
         db = self.readDataBase()
         if str(user) not in db['users'] or len(db['users'][str(user)]['guns']) == 0:
             return f'ya shit\'s EMPTY'
         user_guns = db['users'][str(user)]['guns']
-        gun_list = ''
+        gun_list = '```'
         for gun in user_guns:
             gun_list += f'• {gun}\n'
-        return f'{str(user)}\'s Inventory:\n{gun_list}'
+        gun_list += '```'
+        return f'**{str(user)}\'s Inventory: ({len(user_guns)}/{len(self.items)} collected)**\n{gun_list}'
 
-    def getMichaelPoints(self, user: discord.User):
+    def getMichaelPoints(self, user: discord.User) -> int:
         db = self.readDataBase()
         self.addUser(user, db)
         michael_points = db['users'][str(user)]['mpoints']
         return michael_points
     
-    def updateMichaelPoints(self, user: discord.User, amount: int):
+    def updateMichaelPoints(self, user: discord.User, val: int) -> str:
         db = self.readDataBase()
         self.addUser(user, db)
-        db['users'][str(user)]['mpoints'] += amount
+        db['users'][str(user)]['mpoints'] += val
         self.writeDataBase(db)
-        if amount > 0:
-            return f'+{amount} Michael Points'
-        elif amount < 0:
-            return f'{amount} Michael Points'
+        if val > 0:
+            return f'+{val} Michael Points'
+        elif val < 0:
+            return f'{val} Michael Points'
 
-    
+    # TODO
+    def showLeaderboard(self) -> str:
+        db = self.readDataBase()
+        mpoints_arr = []
+        for data in list(db['users'].items()):
+            mpoints_arr.append({'user': data[0], 'mpoints': data[1]['mpoints']})
+        sorted_order = sorted(mpoints_arr, key=lambda x: x['mpoints'], reverse=True)
+        leaderboard_str = '**Michael Points Leaderboard**\n```'
+        rank = 1
+        for data in sorted_order:
+            username = data['user']
+            mpoints = data['mpoints']
+            leaderboard_str += f'{rank}) {mpoints} Mpts - {username}\n'
+            rank += 1
+        leaderboard_str += '```'
+        return leaderboard_str

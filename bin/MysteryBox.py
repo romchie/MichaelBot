@@ -1,17 +1,12 @@
 import random
-import time
 import discord
 import json
-from operator import itemgetter
-import pprint
-
-from pysondb import db
 
 class MysteryBox:
     def __init__(self):
         self.INVENTORY_FILE = 'data/inventories.json'
-        # self.client = client
-        self.db = db.getDb('data/inventories.json')
+        self.db_clear_types = ['all', 'guns', 'mpoints']
+
         self.assault_rifles = ['AK47', 'AUG A1', 'FG42', 'M4A4', 'STG-44', 'M16-M', 'Famas F1']
         self.carbines = ['Gewer 43', 'M1A1 Carbine', 'M1 Garand', 'M14']
         self.smgs = ['AK-74u', 'MP40', 'MP5', 'PPSH', 'M1 Thompson', 'Type 100']
@@ -21,7 +16,8 @@ class MysteryBox:
         self.side_arms = ['B93 Raffica', 'M1911 Colt', '.357 Magnum', 'Mauser C96', 'Walther P99', 'Desert Eagle']
         self.specials = ['M2 Flamethrower', 'Panzerschrek', 'Raygun', 'Wunderwaffe DG-2']
         self.melees = ['Knife', 'Bowie Knife', 'Oar', 'Frying Pan']
-        self.items = self.assault_rifles + self.carbines + self.smgs + self.lmgs + self.shotguns + self.snipers + self.side_arms + self.specials + self.melees
+        self.uniques = ['Michael']
+        self.items = self.assault_rifles + self.carbines + self.smgs + self.lmgs + self.shotguns + self.snipers + self.side_arms + self.specials + self.melees + self.uniques
 
     def readDataBase(self) -> any:
         with open(self.INVENTORY_FILE, 'r') as file:
@@ -35,14 +31,14 @@ class MysteryBox:
         """Types: `all`, `guns`, `mpoints`"""
         db = self.readDataBase()
         if t == 'all':
-            print('clearing all')
+            print('clearing all...')
             db['users'] = {}
         elif t == 'guns':
-            print('clearing guns')
+            print('clearing guns...')
             for user in db['users']:
                 db['users'][user]['guns'] = []
         elif t == 'mpoints':
-            print('clearing michael points')
+            print('clearing michael points...')
             for user in db['users']:
                 user['mpoints'] = 0
         self.writeDataBase(db)
@@ -52,6 +48,7 @@ class MysteryBox:
             database['users'][str(user)] = {
                 "id": user.id,
                 "mpoints": 0,
+                "fpoints": 0,
                 "guns": [],
             }
 
@@ -79,20 +76,37 @@ class MysteryBox:
     def getMichaelPoints(self, user: discord.User) -> int:
         db = self.readDataBase()
         self.addUser(user, db)
-        michael_points = db['users'][str(user)]['mpoints']
+        michael_points = db['users'][str(user)].get('mpoints', 0)
         return michael_points
+    
+    def getFreakyPoints(self, user: discord.User) -> int:
+        db = self.readDataBase()
+        self.addUser(user, db)
+        freaky_points = db['users'][str(user)].get('fpoints', 0)
+        return freaky_points
     
     def updateMichaelPoints(self, user: discord.User, val: int) -> str:
         db = self.readDataBase()
         self.addUser(user, db)
-        db['users'][str(user)]['mpoints'] += val
+        db['users'][str(user)]['mpoints'] = db['users'][str(user)].get('mpoints', 0) + val
         self.writeDataBase(db)
+        plural = None if val == 1 else 's'
         if val > 0:
-            return f'+{val} Michael Points'
+            return f'+{val} Michael Point{plural}'
         elif val < 0:
-            return f'{val} Michael Points'
+            return f'{val} Michael Point{plural}'
+        
+    def updateFreakyPoints(self, user: discord.User, val: int) -> str:
+        db = self.readDataBase()
+        self.addUser(user, db)
+        db['users'][str(user)]['fpoints'] = db['users'][str(user)].get('fpoints', 0) + val
+        self.writeDataBase(db)
+        plural = None if val == 1 else 's'
+        if val > 0:
+            return f'+{val} Freaky Point{plural}'
+        elif val < 0:
+            return f'{val} Freaky Point{plural}'
 
-    # TODO
     def showLeaderboard(self) -> str:
         db = self.readDataBase()
         mpoints_arr = []

@@ -1,11 +1,18 @@
-CLEAR_TYPE ?= all
-NOTIFY ?= True
+# CLEAR_TYPE ?= all
+# NOTIFY ?= True
 
 all :
-	python3.11 bot.py ${NOTIFY}
+	python3.11 bot.py
+
+# start the bot with a notification
+notify : 
+	python3.11 bot.py notify
+
+sync :
+	python3.11 bot.py sync
 
 install-reqs :
 	pip install -r requirements.txt
 
 clear-db :
-	python3.11 bin/clear-db.py ${CLEAR_TYPE}
+	python3.11 bin/clear-db.py

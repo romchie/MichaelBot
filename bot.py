@@ -15,6 +15,7 @@ from bin.MysteryBox import MysteryBox
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 MAIN_CHANNEL = int(os.getenv('MAIN_CHANNEL_ID'))
+MUDAE_CHANNEL = int(os.getenv('MUDAE_CHANNEL_ID'))
 GUILD_ID = int(os.getenv('GUILD_ID'))
 # specific users
 ME = int(os.getenv('ROMCH_ID'))
@@ -54,10 +55,20 @@ async def on_ready():
 async def on_message(message: discord.Message):
     if message.author == client.user:
         return
-    if message.author.id == NATHANIEL:
+    if message.content == 'test':
+        e = discord.Embed(color=10181046)
+        e.set_image(url='https://static.wikia.nocookie.net/micheals-zombies-roblox/images/f/f3/Michael.png/revision/latest?cb=20220705141814')
+        # e.set_footer(text='Footer', icon_url='https://static.wikia.nocookie.net/micheals-zombies-roblox/images/f/f3/Michael.png/revision/latest?cb=20220705141814')
+        e.add_field(name='Michael', value='10 MP', inline=True)
+        view = discord.ui.View()
+        item = discord.ui.Button(style=discord.ButtonStyle.gray, label='\U00002705')
+        view.add_item(item=item)
+        new_msg = await message.channel.send(embed=e) # add view=view
+        # await new_msg.add_reaction('\U00002705')
+
+    if message.author.id == NATHANIEL and message.channel.id != MUDAE_CHANNEL:
+        return
         await message.reply(content=random.choice(NATHANIEL_GIFS), delete_after=5)
-    # elif message.author == LUKIE:
-    #     await message.add_reaction("")
     if 'beter' in message.content.lower():
         await message.channel.send('Did someone say Beter? :eyes:')
     if 'costco' in message.content.lower():
@@ -120,7 +131,8 @@ async def headphones(ctx: discord.Interaction):
 @tree.command(name='spin', description=f'Spin the mystery box for {SPIN_COST} Michael Points')
 async def spin(ctx: discord.Interaction):
     if MYSTERY_BOX.getMichaelPoints(ctx.user) >= SPIN_COST:
-        await ctx.response.send_message(f'{MYSTERY_BOX.updateMichaelPoints(ctx.user, -SPIN_COST)}\n{MYSTERY_BOX.spinBox(ctx.user)}', delete_after=10)
+        embedded_result = MYSTERY_BOX.spinBox(ctx.user)
+        await ctx.response.send_message(content=f'`{MYSTERY_BOX.updateMichaelPoints(ctx.user, SPIN_COST*-1)}`\n', embed=embedded_result)
     else:
         await ctx.response.send_message(f'You need {SPIN_COST} Michael Points to use this')
 
@@ -130,7 +142,7 @@ async def spin(ctx: discord.Interaction):
 async def inventory(ctx: discord.Interaction, user: discord.User=None):
     if user == None:
         user = ctx.user
-    await ctx.response.send_message(MYSTERY_BOX.showInventory(user), delete_after=60)
+    await ctx.response.send_message(MYSTERY_BOX.showInventory(user))
 
 # /mp
 @app_commands.checks.cooldown(1, 5)
@@ -148,7 +160,15 @@ async def mp(ctx: discord.Interaction):
 @app_commands.checks.cooldown(1, 5)
 @tree.command(name='leaderboard', description='View the Michael Points Leaderboard')
 async def leaderboard(ctx: discord.Interaction):
-    await ctx.response.send_message(f'{MYSTERY_BOX.showLeaderboard()}')
+    leaderboard_str = MYSTERY_BOX.showLeaderboard('mpoints')
+    await ctx.response.send_message(leaderboard_str)
+
+# /freakyboard
+@app_commands.checks.cooldown(1, 5)
+@tree.command(name='freakyboard', description='View the Freaky Points Leaderboard')
+async def freakyboard(ctx: discord.Interaction):
+    leaderboard_str = MYSTERY_BOX.showLeaderboard('fpoints')
+    await ctx.response.send_message(leaderboard_str)
 
 # /applymp <user> <val>
 @tree.command(name='applymp', description='Add/Deduct a user\'s Michael Points')
@@ -208,8 +228,8 @@ async def michaelPointsDrop():
         
         try:
             reaction, user = await client.wait_for('reaction_add', timeout=60.0, check=check)
-            # -- if nathaniel skill spins --
-            # if user.id == 594989623877304320:
+            # -- if nathaniel skill reacts --
+            # if user.id == NATHANIEL:
             #     await channel.send('hold up, ain\'t he nathaniel b?')
             #     MYSTERY_BOX.updateMichaelPoints(user, -num_points)
             #     await channel.send(f'{user.mention} lost {num_points} Michael Points')

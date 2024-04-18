@@ -16,3 +16,6 @@ install-reqs :
 
 clear-db :
 	python3.11 bin/clear-db.py
+
+add-item :
+	python3.11 bin/box_data/add-box-item.py

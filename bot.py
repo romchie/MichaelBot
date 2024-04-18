@@ -112,17 +112,20 @@ async def on_reaction_add(reaction: discord.Reaction, user: discord.User):
 # await client.tree.sync(guild=ctx.guild)
 
 ### Slash Commands ###
-# /ping
-@app_commands.checks.cooldown(1, 10)
-@tree.command(name='ping', description='This is a test command')
-async def ping(ctx: discord.Interaction):
-    await ctx.response.send_message('pong!')
+# # /ping
+# @app_commands.checks.cooldown(1, 10)
+# @tree.command(name='ping', description='This is a test command')
+# async def ping(ctx: discord.Interaction):
+#     await ctx.response.send_message('pong!')
 
 # /headphones
 @tree.command(name='headphones', description='Check out my new headphones!')
 async def headphones(ctx: discord.Interaction):
+    if MYSTERY_BOX.hasHeadphones(ctx.user):
+        await ctx.response.send_message(file=discord.File('assets/headphones.jpg'), content='Presenting your legitimately owned headphones!')
+        return
     if MYSTERY_BOX.getMichaelPoints(ctx.user) >= 50:
-        await ctx.response.send_message(file=discord.File('assets/headphones.jpg'), content=f'*{MYSTERY_BOX.updateMichaelPoints(ctx.user, -50)}*')
+        await ctx.response.send_message(file=discord.File('assets/headphones.jpg'), content=f'`{MYSTERY_BOX.updateMichaelPoints(ctx.user, -50)}`')
     else:
         await ctx.response.send_message(f'You need 50 Michael Points to use this')
 
@@ -132,9 +135,9 @@ async def headphones(ctx: discord.Interaction):
 async def spin(ctx: discord.Interaction):
     if MYSTERY_BOX.getMichaelPoints(ctx.user) >= SPIN_COST:
         embedded_result = MYSTERY_BOX.spinBox(ctx.user)
-        await ctx.response.send_message(content=f'`{MYSTERY_BOX.updateMichaelPoints(ctx.user, SPIN_COST*-1)}`\n', embed=embedded_result)
+        await ctx.response.send_message(content=f'`{MYSTERY_BOX.updateMichaelPoints(ctx.user, SPIN_COST*-1)}`\n', embed=embedded_result, delete_after=120)
     else:
-        await ctx.response.send_message(f'You need {SPIN_COST} Michael Points to use this')
+        await ctx.response.send_message(f'You need `{SPIN_COST}` Michael Points to use this')
 
 # /inventory <user>
 @app_commands.checks.cooldown(1, 5)
@@ -178,7 +181,7 @@ async def applymp(ctx: discord.Interaction, user: discord.User, val: int):
         if val >= 0:
             await ctx.response.send_message(f'Gave {val} Michael Points to {user.mention}')
         elif val < 0:
-            await ctx.response.send_message(f'Deducted {val*-1} Michael Points from {user.mention}')
+            await ctx.response.send_message(f'Deducted {val * -1} Michael Points from {user.mention}')
     else:
         await ctx.response.send_message('You do not have access to this command', ephemeral=True)
 
@@ -190,10 +193,17 @@ async def applyfp(ctx: discord.Interaction, user: discord.User, val: int):
         if val >= 0:
             await ctx.response.send_message(f'Gave {val} Freaky Points to {user.mention}')
         elif val < 0:
-            await ctx.response.send_message(f'Deducted {val*-1} Freaky Points from {user.mention}')
+            await ctx.response.send_message(f'Deducted {val * -1} Freaky Points from {user.mention}')
     else:
         await ctx.response.send_message('You do not have access to this command', ephemeral=True)
 
+# /sell <item>
+@tree.command(name='sell', description='Sell an owned item in exchange for Michael Points (case-sensitive)')
+async def sell(ctx: discord.Interaction, item: str):
+    item_sold, sell_amount = MYSTERY_BOX.sellItem(ctx.user, item)
+    if item_sold == None:
+        await ctx.response.send_message(f'You either incorrectly typed your item or you do not own a "{item}"\n`<item>` should be case-sensitive (I.e. Sawed-Off is different from sawed-off)', ephemeral=True)
+    await ctx.response.send_message(f'{ctx.user.mention} sold `{item_sold}` for `{sell_amount}` Michael Points')
 
         
 ### Cooldown Errors ###

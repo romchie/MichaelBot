@@ -12,50 +12,434 @@
             "melees",
             "uniques"
         ],
+        "colors": {
+            "common": 9807270,
+            "uncommon": 5763719,
+            "rare": 3447003,
+            "epic": 10181046,
+            "legendary": 15844367,
+            "mythic": 15548997
+        },
+        "items": {
+            "AK47": {
+                "name": "AK47",
+                "rarity": "uncommon",
+                "weight": 3,
+                "mpoints_value": 20,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/b/b1/NewAK47clean.webp",
+                "item_type": "assault_rifles"
+            },
+            "AUG A1": {
+                "name": "AUG A1",
+                "rarity": "uncommon",
+                "weight": 3,
+                "mpoints_value": 20,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/d/d5/NewAUGclean.png",
+                "item_type": "assault_rifles"
+            },
+            "FG42": {
+                "name": "FG42",
+                "rarity": "common",
+                "weight": 3,
+                "mpoints_value": 20,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/9/91/NewFG42clean.webp",
+                "item_type": "assault_rifles"
+            },
+            "M4A4": {
+                "name": "M4A4",
+                "rarity": "common",
+                "weight": 3,
+                "mpoints_value": 20,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/0/00/NewM4A4clean.webp",
+                "item_type": "assault_rifles"
+            },
+            "STG-44": {
+                "name": "STG-44",
+                "rarity": "common",
+                "weight": 3,
+                "mpoints_value": 20,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/9/9b/NewSTG44clean.webp",
+                "item_type": "assault_rifles"
+            },
+            "M16-M": {
+                "name": "M16-M",
+                "rarity": "rare",
+                "weight": 1,
+                "mpoints_value": 60,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/0/02/M16.webp",
+                "item_type": "assault_rifles"
+            },
+            "Famas F1": {
+                "name": "Famas F1",
+                "rarity": "rare",
+                "weight": 1,
+                "mpoints_value": 60,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/3/30/Famas.webp",
+                "item_type": "assault_rifles"
+            },
+            "Gewehr 43": {
+                "name": "Gewehr 43",
+                "rarity": "common",
+                "weight": 2,
+                "mpoints_value": 20,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/9/90/NewGewehr43clean.webp",
+                "item_type": "carbines"
+            },
+            "M1A1 Carbine": {
+                "name": "M1A1 Carbine",
+                "rarity": "common",
+                "weight": 2,
+                "mpoints_value": 20,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/d/dd/NewM1A1Carbineclean.webp",
+                "item_type": "carbines"
+            },
+            "M1 Garand": {
+                "name": "M1 Garand",
+                "rarity": "common",
+                "weight": 2,
+                "mpoints_value": 20,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/2/29/NewM1Garandclean.png",
+                "item_type": "carbines"
+            },
+            "M14": {
+                "name": "M14",
+                "rarity": "uncommon",
+                "weight": 1,
+                "mpoints_value": 40,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/3/38/M14-removebg-preview.webp",
+                "item_type": "carbines"
+            },
+            "AK-74u": {
+                "name": "AK-74u",
+                "rarity": "common",
+                "weight": 2,
+                "mpoints_value": 20,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/b/bb/NewAK74u.png",
+                "item_type": "smgs"
+            },
+            "MP40": {
+                "name": "MP40",
+                "rarity": "common",
+                "weight": 2,
+                "mpoints_value": 20,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/2/2c/NewMP40clean.png",
+                "item_type": "smgs"
+            },
+            "MP5": {
+                "name": "MP5",
+                "rarity": "uncommon",
+                "weight": 2,
+                "mpoints_value": 20,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/7/72/NewMP5clean.png",
+                "item_type": "smgs"
+            },
+            "PPSH": {
+                "name": "PPSH",
+                "rarity": "rare",
+                "weight": 1,
+                "mpoints_value": 45,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/c/c7/NewPPSHcamo.png",
+                "item_type": "smgs"
+            },
+            "M1 Thompson": {
+                "name": "M1 Thompson",
+                "rarity": "uncommon",
+                "weight": 2,
+                "mpoints_value": 20,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/7/74/NewThompsonclean.png",
+                "item_type": "smgs"
+            },
+            "Type 100": {
+                "name": "Type 100",
+                "rarity": "uncommon",
+                "weight": 2,
+                "mpoints_value": 20,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/e/e5/NewType100clean.png",
+                "item_type": "smgs"
+            },
+            "B.A.R": {
+                "name": "B.A.R",
+                "rarity": "uncommon",
+                "weight": 3,
+                "mpoints_value": 20,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/f/fe/NewBARclean.webp",
+                "item_type": "lmgs"
+            },
+            "M1919 Browning": {
+                "name": "M1919 Browning",
+                "rarity": "uncommon",
+                "weight": 2,
+                "mpoints_value": 30,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/9/94/NewM1919clean.webp",
+                "item_type": "lmgs"
+            },
+            "LSAT": {
+                "name": "LSAT",
+                "rarity": "rare",
+                "weight": 2,
+                "mpoints_value": 45,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/7/73/NewLSATclean.webp",
+                "item_type": "lmgs"
+            },
+            "MG42": {
+                "name": "MG42",
+                "rarity": "uncommon",
+                "weight": 2,
+                "mpoints_value": 40,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/4/40/NewMG42camo.webp",
+                "item_type": "lmgs"
+            },
+            "RPK": {
+                "name": "RPK",
+                "rarity": "epic",
+                "weight": 1,
+                "mpoints_value": 55,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/3/3d/RPK.webp",
+                "item_type": "lmgs"
+            },
+            "Sawed-Off": {
+                "name": "Sawed-Off",
+                "rarity": "uncommon",
+                "weight": 5,
+                "mpoints_value": 30,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/c/cb/NewSawedoffclean.png",
+                "item_type": "shotguns"
+            },
+            "Model 680 Shotgun": {
+                "name": "Model 680 Shotgun",
+                "rarity": "rare",
+                "weight": 5,
+                "mpoints_value": 50,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/a/a0/NewModel680clean.png",
+                "item_type": "shotguns"
+            },
+            "Saiga-12": {
+                "name": "Saiga-12",
+                "rarity": "rare",
+                "weight": 5,
+                "mpoints_value": 45,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/8/8a/NewSaiga12clean.png",
+                "item_type": "shotguns"
+            },
+            "Trench Shotgun": {
+                "name": "Trench Shotgun",
+                "rarity": "epic",
+                "weight": 3,
+                "mpoints_value": 69,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/d/da/NewTrenchgunclean.png",
+                "item_type": "shotguns"
+            },
+            "Super-Shorty": {
+                "name": "Super-Shorty",
+                "rarity": "epic",
+                "weight": 1,
+                "mpoints_value": 80,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/3/34/Akai_in_mz_no_way.png",
+                "item_type": "shotguns"
+            },
+            "Kar98k": {
+                "name": "Kar98k",
+                "rarity": "epic",
+                "weight": 3,
+                "mpoints_value": 100,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/3/31/NewKar98kclean.webp",
+                "item_type": "snipers"
+            },
+            "PTRS-41": {
+                "name": "PTRS-41",
+                "rarity": "epic",
+                "weight": 1,
+                "mpoints_value": 250,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/9/9a/NewPTRS41clean.webp",
+                "item_type": "snipers"
+            },
+            "B93 Raffica": {
+                "name": "B93 Raffica",
+                "rarity": "uncommon",
+                "weight": 5,
+                "mpoints_value": 20,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/b/bc/NewB93Rclean.png",
+                "item_type": "side_arms"
+            },
+            "M1911 Colt": {
+                "name": "M1911 Colt",
+                "rarity": "common",
+                "weight": 7,
+                "mpoints_value": 10,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/6/6d/NewM1911clean.png",
+                "item_type": "side_arms"
+            },
+            ".357 Magnum": {
+                "name": ".357 Magnum",
+                "rarity": "rare",
+                "weight": 3,
+                "mpoints_value": 50,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/3/33/NewMagnumclean.webp",
+                "item_type": "side_arms"
+            },
+            "Mauser C96": {
+                "name": "Mauser C96",
+                "rarity": "common",
+                "weight": 7,
+                "mpoints_value": 10,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/7/75/NewMauserC96clean.png",
+                "item_type": "side_arms"
+            },
+            "Walther P99": {
+                "name": "Walther P99",
+                "rarity": "uncommon",
+                "weight": 5,
+                "mpoints_value": 20,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/c/c9/NewP99clean.png",
+                "item_type": "side_arms"
+            },
+            "Desert Eagle": {
+                "name": "Desert Eagle",
+                "rarity": "epic",
+                "weight": 2,
+                "mpoints_value": 75,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/6/60/NewDeagleclean.png",
+                "item_type": "side_arms"
+            },
+            "M2 Flamethrower": {
+                "name": "M2 Flamethrower",
+                "rarity": "epic",
+                "weight": 6,
+                "mpoints_value": 100,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/4/48/NewM2Flamer.png",
+                "item_type": "specials"
+            },
+            "Panzerschrek": {
+                "name": "Panzerschrek",
+                "rarity": "epic",
+                "weight": 5,
+                "mpoints_value": 250,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/e/e1/NewPanzer.png",
+                "item_type": "specials"
+            },
+            "Raygun": {
+                "name": "Raygun",
+                "rarity": "legendary",
+                "weight": 1,
+                "mpoints_value": 1500,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/4/4f/NewRayGun.png",
+                "item_type": "specials"
+            },
+            "Wunderwaffe DG-2": {
+                "name": "Wunderwaffe DG-2",
+                "rarity": "legendary",
+                "weight": 1,
+                "mpoints_value": 1800,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/6/6c/NewWunderWaffe.png",
+                "item_type": "specials"
+            },
+            "Knife": {
+                "name": "Knife",
+                "rarity": "common",
+                "weight": 10,
+                "mpoints_value": 5,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/5/58/Knife.png",
+                "item_type": "melees"
+            },
+            "Bowie Knife": {
+                "name": "Bowie Knife",
+                "rarity": "rare",
+                "weight": 3,
+                "mpoints_value": 90,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/b/ba/Bowie.png",
+                "item_type": "melees"
+            },
+            "Oar": {
+                "name": "Oar",
+                "rarity": "epic",
+                "weight": 3,
+                "mpoints_value": 250,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/b/b6/Oar.png",
+                "item_type": "melees"
+            },
+            "Frying Pan": {
+                "name": "Frying Pan",
+                "rarity": "legendary",
+                "weight": 1,
+                "mpoints_value": 400,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/f/f3/Fryingpan.png",
+                "item_type": "melees"
+            },
+            "Michael": {
+                "name": "Michael",
+                "rarity": "mythic",
+                "weight": 1,
+                "mpoints_value": 7000,
+                "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/f/f3/Michael.png",
+                "item_type": "uniques"
+            },
+            "Headphones": {
+                "name": "Headphones",
+                "rarity": "mythic",
+                "weight": 1,
+                "mpoints_value": 5000,
+                "img_url": "https://media.discordapp.net/attachments/342849966911520768/1227821354129035344/headphones.jpg?ex=6629ccbe&is=661757be&hm=934c11d4ede12224ce6be3c9cd51db17125d549346016cae51e7089bd13e45f1&=&format=webp&width=658&height=878",
+                "item_type": "uniques"
+            }
+        },
         "assault_rifles": {
             "weight": 15,
             "items": [
                 {
                     "name": "AK47",
+                    "rarity": "uncommon",
                     "weight": 3,
                     "mpoints_value": 20,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/b/b1/NewAK47clean.webp"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/b/b1/NewAK47clean.webp",
+                    "item_type": "assault_rifles"
                 },
                 {
                     "name": "AUG A1",
+                    "rarity": "uncommon",
                     "weight": 3,
                     "mpoints_value": 20,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/d/d5/NewAUGclean.png"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/d/d5/NewAUGclean.png",
+                    "item_type": "assault_rifles"
                 },
                 {
                     "name": "FG42",
+                    "rarity": "common",
                     "weight": 3,
                     "mpoints_value": 20,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/9/91/NewFG42clean.webp"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/9/91/NewFG42clean.webp",
+                    "item_type": "assault_rifles"
                 },
                 {
                     "name": "M4A4",
+                    "rarity": "common",
                     "weight": 3,
                     "mpoints_value": 20,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/0/00/NewM4A4clean.webp"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/0/00/NewM4A4clean.webp",
+                    "item_type": "assault_rifles"
                 },
                 {
                     "name": "STG-44",
+                    "rarity": "common",
                     "weight": 3,
                     "mpoints_value": 20,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/9/9b/NewSTG44clean.webp"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/9/9b/NewSTG44clean.webp",
+                    "item_type": "assault_rifles"
                 },
                 {
                     "name": "M16-M",
+                    "rarity": "rare",
                     "weight": 1,
                     "mpoints_value": 60,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/0/02/M16.webp"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/0/02/M16.webp",
+                    "item_type": "assault_rifles"
                 },
                 {
                     "name": "Famas F1",
+                    "rarity": "rare",
                     "weight": 1,
                     "mpoints_value": 60,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/3/30/Famas.webp"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/3/30/Famas.webp",
+                    "item_type": "assault_rifles"
                 }
             ]
         },
@@ -64,27 +448,35 @@
             "items": [
                 {
                     "name": "Gewehr 43",
+                    "rarity": "common",
                     "weight": 2,
                     "mpoints_value": 20,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/9/90/NewGewehr43clean.webp"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/9/90/NewGewehr43clean.webp",
+                    "item_type": "carbines"
                 },
                 {
                     "name": "M1A1 Carbine",
+                    "rarity": "common",
                     "weight": 2,
                     "mpoints_value": 20,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/d/dd/NewM1A1Carbineclean.webp"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/d/dd/NewM1A1Carbineclean.webp",
+                    "item_type": "carbines"
                 },
                 {
                     "name": "M1 Garand",
+                    "rarity": "common",
                     "weight": 2,
                     "mpoints_value": 20,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/2/29/NewM1Garandclean.png"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/2/29/NewM1Garandclean.png",
+                    "item_type": "carbines"
                 },
                 {
                     "name": "M14",
+                    "rarity": "uncommon",
                     "weight": 1,
                     "mpoints_value": 40,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/3/38/M14-removebg-preview.webp"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/3/38/M14-removebg-preview.webp",
+                    "item_type": "carbines"
                 }
             ]
         },
@@ -93,39 +485,51 @@
             "items": [
                 {
                     "name": "AK-74u",
+                    "rarity": "common",
                     "weight": 2,
                     "mpoints_value": 20,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/b/bb/NewAK74u.png"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/b/bb/NewAK74u.png",
+                    "item_type": "smgs"
                 },
                 {
                     "name": "MP40",
+                    "rarity": "common",
                     "weight": 2,
                     "mpoints_value": 20,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/2/2c/NewMP40clean.png"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/2/2c/NewMP40clean.png",
+                    "item_type": "smgs"
                 },
                 {
                     "name": "MP5",
+                    "rarity": "uncommon",
                     "weight": 2,
                     "mpoints_value": 20,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/7/72/NewMP5clean.png"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/7/72/NewMP5clean.png",
+                    "item_type": "smgs"
                 },
                 {
                     "name": "PPSH",
+                    "rarity": "rare",
                     "weight": 1,
                     "mpoints_value": 45,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/c/c7/NewPPSHcamo.png"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/c/c7/NewPPSHcamo.png",
+                    "item_type": "smgs"
                 },
                 {
                     "name": "M1 Thompson",
+                    "rarity": "uncommon",
                     "weight": 2,
                     "mpoints_value": 20,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/7/74/NewThompsonclean.png"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/7/74/NewThompsonclean.png",
+                    "item_type": "smgs"
                 },
                 {
                     "name": "Type 100",
+                    "rarity": "uncommon",
                     "weight": 2,
                     "mpoints_value": 20,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/e/e5/NewType100clean.png"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/e/e5/NewType100clean.png",
+                    "item_type": "smgs"
                 }
             ]
         },
@@ -134,33 +538,43 @@
             "items": [
                 {
                     "name": "B.A.R",
+                    "rarity": "uncommon",
                     "weight": 3,
                     "mpoints_value": 20,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/f/fe/NewBARclean.webp"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/f/fe/NewBARclean.webp",
+                    "item_type": "lmgs"
                 },
                 {
                     "name": "M1919 Browning",
+                    "rarity": "uncommon",
                     "weight": 2,
                     "mpoints_value": 30,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/9/94/NewM1919clean.webp"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/9/94/NewM1919clean.webp",
+                    "item_type": "lmgs"
                 },
                 {
                     "name": "LSAT",
+                    "rarity": "rare",
                     "weight": 2,
                     "mpoints_value": 45,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/7/73/NewLSATclean.webp"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/7/73/NewLSATclean.webp",
+                    "item_type": "lmgs"
                 },
                 {
                     "name": "MG42",
+                    "rarity": "uncommon",
                     "weight": 2,
                     "mpoints_value": 40,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/4/40/NewMG42camo.webp"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/4/40/NewMG42camo.webp",
+                    "item_type": "lmgs"
                 },
                 {
                     "name": "RPK",
+                    "rarity": "epic",
                     "weight": 1,
                     "mpoints_value": 55,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/3/3d/RPK.webp"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/3/3d/RPK.webp",
+                    "item_type": "lmgs"
                 }
             ]
         },
@@ -169,33 +583,43 @@
             "items": [
                 {
                     "name": "Sawed-Off",
+                    "rarity": "uncommon",
                     "weight": 5,
                     "mpoints_value": 30,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/c/cb/NewSawedoffclean.png"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/c/cb/NewSawedoffclean.png",
+                    "item_type": "shotguns"
                 },
                 {
                     "name": "Model 680 Shotgun",
+                    "rarity": "rare",
                     "weight": 5,
                     "mpoints_value": 50,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/a/a0/NewModel680clean.png"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/a/a0/NewModel680clean.png",
+                    "item_type": "shotguns"
                 },
                 {
                     "name": "Saiga-12",
+                    "rarity": "rare",
                     "weight": 5,
                     "mpoints_value": 45,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/8/8a/NewSaiga12clean.png"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/8/8a/NewSaiga12clean.png",
+                    "item_type": "shotguns"
                 },
                 {
                     "name": "Trench Shotgun",
+                    "rarity": "epic",
                     "weight": 3,
                     "mpoints_value": 69,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/d/da/NewTrenchgunclean.png"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/d/da/NewTrenchgunclean.png",
+                    "item_type": "shotguns"
                 },
                 {
                     "name": "Super-Shorty",
+                    "rarity": "epic",
                     "weight": 1,
                     "mpoints_value": 80,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/3/34/Akai_in_mz_no_way.png"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/3/34/Akai_in_mz_no_way.png",
+                    "item_type": "shotguns"
                 }
             ]
         },
@@ -204,15 +628,19 @@
             "items": [
                 {
                     "name": "Kar98k",
+                    "rarity": "epic",
                     "weight": 3,
                     "mpoints_value": 100,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/3/31/NewKar98kclean.webp"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/3/31/NewKar98kclean.webp",
+                    "item_type": "snipers"
                 },
                 {
                     "name": "PTRS-41",
+                    "rarity": "epic",
                     "weight": 1,
                     "mpoints_value": 250,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/9/9a/NewPTRS41clean.webp"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/9/9a/NewPTRS41clean.webp",
+                    "item_type": "snipers"
                 }
             ]
         },
@@ -221,39 +649,51 @@
             "items": [
                 {
                     "name": "B93 Raffica",
+                    "rarity": "uncommon",
                     "weight": 5,
                     "mpoints_value": 20,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/b/bc/NewB93Rclean.png"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/b/bc/NewB93Rclean.png",
+                    "item_type": "side_arms"
                 },
                 {
                     "name": "M1911 Colt",
+                    "rarity": "common",
                     "weight": 7,
                     "mpoints_value": 10,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/6/6d/NewM1911clean.png"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/6/6d/NewM1911clean.png",
+                    "item_type": "side_arms"
                 },
                 {
                     "name": ".357 Magnum",
+                    "rarity": "rare",
                     "weight": 3,
                     "mpoints_value": 50,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/3/33/NewMagnumclean.webp"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/3/33/NewMagnumclean.webp",
+                    "item_type": "side_arms"
                 },
                 {
                     "name": "Mauser C96",
+                    "rarity": "common",
                     "weight": 7,
                     "mpoints_value": 10,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/7/75/NewMauserC96clean.png"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/7/75/NewMauserC96clean.png",
+                    "item_type": "side_arms"
                 },
                 {
                     "name": "Walther P99",
+                    "rarity": "uncommon",
                     "weight": 5,
                     "mpoints_value": 20,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/c/c9/NewP99clean.png"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/c/c9/NewP99clean.png",
+                    "item_type": "side_arms"
                 },
                 {
                     "name": "Desert Eagle",
+                    "rarity": "epic",
                     "weight": 2,
                     "mpoints_value": 75,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/6/60/NewDeagleclean.png"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/6/60/NewDeagleclean.png",
+                    "item_type": "side_arms"
                 }
             ]
         },
@@ -262,27 +702,35 @@
             "items": [
                 {
                     "name": "M2 Flamethrower",
+                    "rarity": "epic",
                     "weight": 6,
                     "mpoints_value": 100,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/4/48/NewM2Flamer.png"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/4/48/NewM2Flamer.png",
+                    "item_type": "specials"
                 },
                 {
                     "name": "Panzerschrek",
+                    "rarity": "epic",
                     "weight": 5,
                     "mpoints_value": 250,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/e/e1/NewPanzer.png"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/e/e1/NewPanzer.png",
+                    "item_type": "specials"
                 },
                 {
                     "name": "Raygun",
+                    "rarity": "legendary",
                     "weight": 1,
                     "mpoints_value": 1500,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/4/4f/NewRayGun.png"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/4/4f/NewRayGun.png",
+                    "item_type": "specials"
                 },
                 {
                     "name": "Wunderwaffe DG-2",
+                    "rarity": "legendary",
                     "weight": 1,
                     "mpoints_value": 1800,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/6/6c/NewWunderWaffe.png"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/6/6c/NewWunderWaffe.png",
+                    "item_type": "specials"
                 }
             ]
         },
@@ -291,27 +739,35 @@
             "items": [
                 {
                     "name": "Knife",
+                    "rarity": "common",
                     "weight": 10,
                     "mpoints_value": 5,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/5/58/Knife.png"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/5/58/Knife.png",
+                    "item_type": "melees"
                 },
                 {
                     "name": "Bowie Knife",
+                    "rarity": "rare",
                     "weight": 3,
                     "mpoints_value": 90,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/b/ba/Bowie.png"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/b/ba/Bowie.png",
+                    "item_type": "melees"
                 },
                 {
                     "name": "Oar",
+                    "rarity": "epic",
                     "weight": 3,
                     "mpoints_value": 250,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/b/b6/Oar.png"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/b/b6/Oar.png",
+                    "item_type": "melees"
                 },
                 {
                     "name": "Frying Pan",
+                    "rarity": "legendary",
                     "weight": 1,
                     "mpoints_value": 400,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/f/f3/Fryingpan.png"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/f/f3/Fryingpan.png",
+                    "item_type": "melees"
                 }
             ]
         },
@@ -320,15 +776,19 @@
             "items": [
                 {
                     "name": "Michael",
+                    "rarity": "mythic",
                     "weight": 1,
                     "mpoints_value": 7000,
-                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/f/f3/Michael.png"
+                    "img_url": "https://static.wikia.nocookie.net/micheals-zombies-roblox/images/f/f3/Michael.png",
+                    "item_type": "uniques"
                 },
                 {
                     "name": "Headphones",
+                    "rarity": "mythic",
                     "weight": 1,
                     "mpoints_value": 5000,
-                    "img_url": "https://media.discordapp.net/attachments/342849966911520768/1227821354129035344/headphones.jpg?ex=6629ccbe&is=661757be&hm=934c11d4ede12224ce6be3c9cd51db17125d549346016cae51e7089bd13e45f1&=&format=webp&width=658&height=878"
+                    "img_url": "https://media.discordapp.net/attachments/342849966911520768/1227821354129035344/headphones.jpg?ex=6629ccbe&is=661757be&hm=934c11d4ede12224ce6be3c9cd51db17125d549346016cae51e7089bd13e45f1&=&format=webp&width=658&height=878",
+                    "item_type": "uniques"
                 }
             ]
         }

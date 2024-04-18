@@ -23,11 +23,13 @@ if __name__ == "__main__":
         if chosen_type in db['box_items']['types']:
             print("Fill out the following fields:")
             name = input('> item name: ')
+            rarity = input('> rarity: ')
             weight = input('> roll weight: ')
             mpoints_value = input('> mp value: ')
             img_url = input('> image url: ')
             new_item = {
                 "name": name,
+                "rarity": rarity,
                 "weight": int(weight),
                 "mpoints_value": int(mpoints_value),
                 "img_url": img_url

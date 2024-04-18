@@ -60,19 +60,20 @@ class MysteryBox:
 
         item_types = list(box_db['box_items']['types'])
         item_type_weights = [box_db['box_items'][itype]['weight'] for itype in item_types]
-       
         item_type = random.choices(population=item_types, weights=item_type_weights)[0]
-        item_weights = [item['weight'] for item in box_db['box_items'][item_type]['items']]
-        item_data = random.choice(box_db['box_items'][item_type]['items'])
+        items = list(box_db['box_items'][item_type]['items'])
+        item_weights = [item['weight'] for item in items]
+        item_data = random.choices(population=items, weights=item_weights)[0]
         item_name = item_data['name']
         item_mp = item_data['mpoints_value']
+        item_rarity = item_data['rarity']
 
-        e = discord.Embed()
+        e = discord.Embed(title=item_name, description=item_rarity.capitalize() + f' • `{item_mp} mp`', color=box_db['box_items']['colors'][item_rarity])
         e.set_image(url=item_data['img_url'])
-        e.add_field(name=item_name, value=f'{item_mp} mp')
+        # e.add_field(name=f'{item_mp} mp', value='')
 
         if item_name in inventory_db['users'][str(user)]['guns']:
-            e.set_footer(text=f'You rolled a {item_name}... but you\'ve already GYAT one!', icon_url='https://cdn.inspireuplift.com/uploads/images/seller_products/31661/1702901872_MetalGearSolidAlert.png')
+            e.set_footer(text=f'You\'ve already GYAT one!', icon_url='https://cdn.inspireuplift.com/uploads/images/seller_products/31661/1702901872_MetalGearSolidAlert.png')
         else:
             e.set_footer(text='You rolled a new item!', icon_url='https://png.pngtree.com/png-vector/20221215/ourmid/pngtree-green-check-mark-png-image_6525691.png')
             inventory_db['users'][str(user)]['guns'].append(item_name)
@@ -108,22 +109,20 @@ class MysteryBox:
         self.addUser(user, db)
         db['users'][str(user)]['mpoints'] = db['users'][str(user)].get('mpoints', 0) + val
         self.writeDataBase(db, self.INVENTORY_FILE)
-        plural = None if val == 1 else 's'
         if val > 0:
-            return f'+{val} Michael Point{plural}'
+            return f'+{val} Michael Points'
         elif val < 0:
-            return f'{val} Michael Point{plural}'
+            return f'{val} Michael Points'
         
     def updateFreakyPoints(self, user: discord.User, val: int) -> str:
         db = self.readDataBase(self.INVENTORY_FILE)
         self.addUser(user, db)
         db['users'][str(user)]['fpoints'] = db['users'][str(user)].get('fpoints', 0) + val
         self.writeDataBase(db, self.INVENTORY_FILE)
-        plural = None if val == 1 else 's'
         if val > 0:
-            return f'+{val} Freaky Point{plural}'
+            return f'+{val} Freaky Points'
         elif val < 0:
-            return f'{val} Freaky Point{plural}'
+            return f'{val} Freaky Points'
 
     def showLeaderboard(self, board_type: str='mpoints') -> str:
         """`board_type`: `mpoints` or `fpoints`"""
@@ -147,6 +146,29 @@ class MysteryBox:
         else:
             print('incorrect or no leaderboard type provided')
 
+    def hasHeadphones(self, user: discord.User) -> bool:
+        db = self.readDataBase(self.INVENTORY_FILE)
+        if 'Headphones' in db['users'][str(user)]['guns']:
+            return True
+        return False
+    
+    def hasItem(self, user: discord.User, item: str) -> bool:
+        db = self.readDataBase(self.INVENTORY_FILE)
+        if item in db['users'][str(user)]['guns']:
+            return True
+        return False
+    
+    def sellItem(self, user: discord.User, item: str):
+        inventory_db: dict = self.readDataBase(self.INVENTORY_FILE)
+        box_db: dict = self.readDataBase(self.BOX_ITEMS_FILE)
+        if self.hasItem(user, item):
+            mp_value = box_db['box_items']['items'][item]['mpoints_value']
+            inventory_db['users'][str(user)]['guns'].remove(item)
+            self.writeDataBase(inventory_db, self.INVENTORY_FILE)
+            self.updateMichaelPoints(user, mp_value)
+            return item, mp_value
+        else:
+            return None, None
 
 
 class Items(MysteryBox):

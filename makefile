@@ -19,3 +19,6 @@ clear-db :
 
 add-item :
 	python3.11 bin/box_data/add-box-item.py
+
+update-box-db :
+	python3.11 bin/box_data/update-box-db.py

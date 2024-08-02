@@ -5,11 +5,13 @@ import string
 import asyncio
 import discord
 from discord import app_commands
+from discord import interactions
 from discord.ext import tasks
-from discord.ext import commands
 from dotenv import load_dotenv
+import paginator
 
 from bin.MysteryBox import MysteryBox
+from assets.CustomEmoji import *
 
 # load env variables
 load_dotenv()
@@ -34,6 +36,110 @@ COSTCO_GIFS = ['https://tenor.com/view/costco-guys-costco-chicken-bake-big-justi
 NATHANIEL_GIFS = ['https://tenor.com/view/nathaniel-b-gif-26365586', 'https://tenor.com/view/nathanial-b-breaking-bad-hank-breaking-bad-gd-flux-gif-26363420', 'https://tenor.com/view/nathaniel-goofy-ass-okbr-spongebob-squarepants-gif-16697139']
 SPIN_COST = 25
 
+
+class MPointDropView(discord.ui.View):
+    message: discord.Message = None
+    mpoints: int = None
+
+    async def on_timeout(self) -> None:
+        await self.message.channel.send('Nobody reacted in time...')
+
+    @discord.ui.button(emoji='\U00002705', style=discord.ButtonStyle.secondary)
+    async def checkmark(self, interaction: discord.Interaction, button: discord.ui.Button):
+        try:
+            self.stop()
+            MYSTERY_BOX.updateMichaelPoints(interaction.user, self.mpoints)
+            await interaction.channel.send(f'**{interaction.user.name}** claimed **{self.mpoints}**{MP_EMOJI}')
+            await interaction.response.defer()
+        except:
+            pass
+
+
+class PaginationView(discord.ui.View):
+    current_page : int = 1
+    sep : int = 5
+
+    async def send(self, ctx):
+        self.message = await ctx.send(view=self)
+        await self.update_message(self.data[:self.sep])
+
+    def create_embed(self, data):
+        embed = discord.Embed(title=f"User List Page {self.current_page} / {int(len(self.data) / self.sep) + 1}")
+        for item in data:
+            embed.add_field(name=item['label'], value=item[''], inline=False)
+        return embed
+
+    async def update_message(self,data):
+        self.update_buttons()
+        await self.message.edit(embed=self.create_embed(data), view=self)
+
+    def update_buttons(self):
+        if self.current_page == 1:
+            self.first_page_button.disabled = True
+            self.prev_button.disabled = True
+            self.first_page_button.style = discord.ButtonStyle.gray
+            self.prev_button.style = discord.ButtonStyle.gray
+        else:
+            self.first_page_button.disabled = False
+            self.prev_button.disabled = False
+            self.first_page_button.style = discord.ButtonStyle.green
+            self.prev_button.style = discord.ButtonStyle.primary
+
+        if self.current_page == int(len(self.data) / self.sep) + 1:
+            self.next_button.disabled = True
+            self.last_page_button.disabled = True
+            self.last_page_button.style = discord.ButtonStyle.gray
+            self.next_button.style = discord.ButtonStyle.gray
+        else:
+            self.next_button.disabled = False
+            self.last_page_button.disabled = False
+            self.last_page_button.style = discord.ButtonStyle.green
+            self.next_button.style = discord.ButtonStyle.primary
+
+    def get_current_page_data(self):
+        until_item = self.current_page * self.sep
+        from_item = until_item - self.sep
+        if not self.current_page == 1:
+            from_item = 0
+            until_item = self.sep
+        if self.current_page == int(len(self.data) / self.sep) + 1:
+            from_item = self.current_page * self.sep - self.sep
+            until_item = len(self.data)
+        return self.data[from_item:until_item]
+
+
+    @discord.ui.button(label="|<",
+                       style=discord.ButtonStyle.green)
+    async def first_page_button(self, interaction:discord.Interaction, button: discord.ui.Button):
+        await interaction.response.defer()
+        self.current_page = 1
+
+        await self.update_message(self.get_current_page_data())
+
+    @discord.ui.button(label="<",
+                       style=discord.ButtonStyle.primary)
+    async def prev_button(self, interaction:discord.Interaction, button: discord.ui.Button):
+        await interaction.response.defer()
+        self.current_page -= 1
+        await self.update_message(self.get_current_page_data())
+
+    @discord.ui.button(label=">",
+                       style=discord.ButtonStyle.primary)
+    async def next_button(self, interaction:discord.Interaction, button: discord.ui.Button):
+        await interaction.response.defer()
+        self.current_page += 1
+        await self.update_message(self.get_current_page_data())
+
+    @discord.ui.button(label=">|",
+                       style=discord.ButtonStyle.green)
+    async def last_page_button(self, interaction:discord.Interaction, button: discord.ui.Button):
+        await interaction.response.defer()
+        self.current_page = int(len(self.data) / self.sep) + 1
+        await self.update_message(self.get_current_page_data())
+
+
+
+
 ### Client Events ###
 @client.event
 async def on_ready():
@@ -45,7 +151,7 @@ async def on_ready():
         await client.get_channel(MAIN_CHANNEL).send('i\'m alive :)')
 
     # always do:
-    michaelPointsDrop.start()
+    # michaelPointsDrop.start()
     # replayMessage.start()
     await client.change_presence(status=discord.Status.online, activity=discord.CustomActivity(name='I\'m Michael'))
     print(f'{client.user} has connected to Discord!')
@@ -61,10 +167,13 @@ async def on_message(message: discord.Message):
         # e.set_footer(text='Footer', icon_url='https://static.wikia.nocookie.net/micheals-zombies-roblox/images/f/f3/Michael.png/revision/latest?cb=20220705141814')
         e.add_field(name='Michael', value='10 MP', inline=True)
         view = discord.ui.View()
-        item = discord.ui.Button(style=discord.ButtonStyle.gray, label='\U00002705')
+        item = discord.ui.Button(style=discord.ButtonStyle.gray, label='erm button', emoji='\U00002705')
         view.add_item(item=item)
-        new_msg = await message.channel.send(embed=e) # add view=view
+        new_msg = await message.channel.send(embed=e, view=view) # add view=view
         # await new_msg.add_reaction('\U00002705')
+    if message.content == 'test2':
+        button = interactions.Button(style=interactions.ButtonStyle.PRIMARY, label="Click me!", custom_id="click_me")
+
 
     if message.author.id == NATHANIEL and message.channel.id != MUDAE_CHANNEL:
         return
@@ -105,6 +214,10 @@ async def on_reaction_add(reaction: discord.Reaction, user: discord.User):
     # await reaction.message.channel.send(f'{user} reacted with a {reaction.emoji}')
     return
 
+@client.event
+async def on_button_click(ctx: discord.Interaction):
+    print('here')
+    print(ctx.data.items())
 
 
 ### Might need to put this under command function defs ###
@@ -163,8 +276,14 @@ async def mp(ctx: discord.Interaction):
 @app_commands.checks.cooldown(1, 5)
 @tree.command(name='leaderboard', description='View the Michael Points Leaderboard')
 async def leaderboard(ctx: discord.Interaction):
-    leaderboard_str = MYSTERY_BOX.showLeaderboard('mpoints')
-    await ctx.response.send_message(leaderboard_str)
+    embeds = [discord.Embed(title="First embed"),
+          discord.Embed(title="Second embed"),
+          discord.Embed(title="Third embed")]
+    await paginator.Simple().start(ctx, pages=embeds)
+    # await ctx.response.defer()
+
+    # leaderboard_embed = MYSTERY_BOX.showLeaderboard('mpoints')
+    # await ctx.response.send_message(content='', embed=leaderboard_embed)
 
 # /freakyboard
 @app_commands.checks.cooldown(1, 5)
@@ -230,25 +349,24 @@ async def michaelPointsDrop():
     if chance <= 5:
         channel = client.get_channel(MAIN_CHANNEL)
         num_points = random.randint(10, 50)
-        notif = await channel.send(content=f'Quick! First person to react gets `{num_points}` Michael Points!')
-        await notif.add_reaction('\U00002705')
+        view = MPointDropView(timeout=60)
+        view.mpoints = num_points
+        notif = await channel.send(content=f'Quick! First person to react gets **{num_points}**{MP_EMOJI}!', view=view)
+        view.message = notif
+        await view.wait()
 
-        def check(reaction: discord.Reaction, user: discord.User):
-            return reaction.emoji == '\U00002705' and user != client.user #and user.id != NATHANIEL
+
+        # await notif.add_reaction('\U00002705')
+
+        # def check(reaction: discord.Reaction, user: discord.User):
+        #     return reaction.emoji == '\U00002705' and reaction.message == notif and user != client.user #and user.id != NATHANIEL
         
-        try:
-            reaction, user = await client.wait_for('reaction_add', timeout=60.0, check=check)
-            # -- if nathaniel skill reacts --
-            # if user.id == NATHANIEL:
-            #     await channel.send('hold up, ain\'t he nathaniel b?')
-            #     MYSTERY_BOX.updateMichaelPoints(user, -num_points)
-            #     await channel.send(f'{user.mention} lost {num_points} Michael Points')
-            #     return
-            # ------------------------------
-            await channel.send(f'{user.mention} claimed `{num_points}` Michael Points!')
-            MYSTERY_BOX.updateMichaelPoints(user, num_points)
-        except asyncio.TimeoutError:
-            await channel.send(f'Nobody reacted in time...')
+        # try:
+        #     reaction, user = await client.wait_for('reaction_add', timeout=60.0, check=check)
+        #     await channel.send(f'{user.mention} claimed `{num_points}` Michael Points!')
+        #     MYSTERY_BOX.updateMichaelPoints(user, num_points)
+        # except asyncio.TimeoutError:
+        #     await channel.send(f'Nobody reacted in time...')
     
 
 

@@ -15,7 +15,7 @@ install-reqs :
 	pip install -r requirements.txt
 
 clear-db :
-	python3.11 bin/clear-db.py
+	python3.11 utils/clear-db.py
 
 add-item :
 	python3.11 bin/box_data/add-box-item.py

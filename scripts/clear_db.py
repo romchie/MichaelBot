@@ -1,6 +1,7 @@
-from MysteryBox import MysteryBox
+from bin.MysteryBox import MysteryBox
 
-if __name__ == '__main__':
+
+def main():
     db = MysteryBox()
     print('\nClear Types:')
     for clear_type in db.db_clear_types:
@@ -14,3 +15,7 @@ if __name__ == '__main__':
             print('Clear cancelled')
     else:
         print('not a valid clear type')
+
+
+if __name__ == '__main__':
+    main()

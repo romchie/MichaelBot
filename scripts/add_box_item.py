@@ -4,15 +4,16 @@ FILE = 'bin/box_data/box_items.json'
 
 
 def readDataBase():
-        with open(FILE, 'r') as file:
-            return json.load(file)
-        
+    with open(FILE, 'r') as file:
+        return json.load(file)
+
+
 def writeDataBase(data):
     with open(FILE, 'w') as file:
         json.dump(data, file, indent=4)
 
 
-if __name__ == "__main__":
+def main():
     go_again = True
     while go_again:
         db = readDataBase()
@@ -41,3 +42,7 @@ if __name__ == "__main__":
             print('Not a valid item type')
         if input('\nAdd another item? (y/n): ') == 'n':
             go_again = False
+
+
+if __name__ == '__main__':
+    main()

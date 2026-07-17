@@ -58,7 +58,7 @@ class MysteryBox:
         item_mp = item_data['mpoints_value']
         item_rarity = item_data['rarity']
 
-        e = discord.Embed(title=item_name, description=item_rarity.capitalize() + f' • `{item_mp}{MP_EMOJI}`', color=box_db['box_items']['colors'][item_rarity])
+        e = discord.Embed(title=item_name, description=item_rarity.capitalize() + f' • {item_mp}{MP_EMOJI}', color=box_db['box_items']['colors'][item_rarity])
         e.set_image(url=item_data['img_url'])
         # e.add_field(name=f'{item_mp} mp', value='')
 
@@ -71,16 +71,61 @@ class MysteryBox:
 
         return e
     
-    def showInventory(self, user: discord.User) -> str:
+    def showInventory(self, user: discord.User) -> discord.Embed:
         db = self.readDataBase(self.INVENTORY_FILE)
+        box_db = self.readDataBase(self.BOX_ITEMS_FILE)
+        all_items = box_db['box_items']['items']
+        colors = box_db['box_items']['colors']
+
         if str(user.id) not in db['users'] or len(db['users'][str(user.id)]['items']) == 0:
-            return f'ya shit\'s EMPTY'
-        user_guns = db['users'][str(user.id)]['items']
-        gun_list = '```'
-        for gun in user_guns:
-            gun_list += f'• {gun}\n'
-        gun_list += '```'
-        return f'**{str(user)}\'s Inventory: ({len(user_guns)} collected)**\n{gun_list}'
+            e = discord.Embed(description="ya shit's EMPTY", color=colors['common'])
+            return e
+
+        user_items = db['users'][str(user.id)]['items']
+
+        rarity_order = ['mythic', 'legendary', 'epic', 'rare', 'uncommon', 'common']
+        rarity_labels = {
+            'mythic':    '✦ Mythic',
+            'legendary': '★ Legendary',
+            'epic':      '◆ Epic',
+            'rare':      '● Rare',
+            'uncommon':  '○ Uncommon',
+            'common':    '· Common',
+        }
+
+        # Group items by rarity
+        grouped: dict[str, list] = {r: [] for r in rarity_order}
+        for item_name in user_items:
+            item_data = all_items.get(item_name)
+            if item_data:
+                rarity = item_data.get('rarity', 'common')
+                mp = item_data.get('mpoints_value', 0)
+            else:
+                rarity = 'common'
+                mp = 0
+            grouped[rarity].append((item_name, mp))
+
+        # Pick embed color from the rarest group the user owns
+        embed_color = colors['common']
+        for rarity in rarity_order:
+            if grouped[rarity]:
+                embed_color = colors[rarity]
+                break
+
+        e = discord.Embed(
+            title=f"{str(user)}'s Inventory",
+            description=f'{len(user_items)} item{"s" if len(user_items) != 1 else ""} collected',
+            color=embed_color,
+        )
+
+        for rarity in rarity_order:
+            items_in_group = grouped[rarity]
+            if not items_in_group:
+                continue
+            lines = '\n'.join(f'`{name}` — {mp}{MP_EMOJI}' for name, mp in items_in_group)
+            e.add_field(name=rarity_labels[rarity], value=lines, inline=False)
+
+        return e
 
     def getMichaelPoints(self, user: discord.User) -> int:
         db = self.readDataBase(self.INVENTORY_FILE)

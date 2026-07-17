@@ -1,24 +1,19 @@
-# CLEAR_TYPE ?= all
-# NOTIFY ?= True
+.PHONY: romchverse vga romchverse-sync vga-sync romchverse-notify vga-notify
 
-all :
-	python3.11 bot.py
+romchverse:
+	BOT_ENV=.env.romchverse uv run bot
 
-# start the bot with a notification
-notify : 
-	python3.11 bot.py notify
+vga:
+	BOT_ENV=.env.vga uv run bot
 
-sync :
-	python3.11 bot.py sync
+romchverse-sync:
+	BOT_ENV=.env.romchverse uv run bot-sync
 
-install-reqs :
-	pip install -r requirements.txt
+vga-sync:
+	BOT_ENV=.env.vga uv run bot-sync
 
-clear-db :
-	python3.11 utils/clear-db.py
+romchverse-notify:
+	BOT_ENV=.env.romchverse uv run bot-notify
 
-add-item :
-	python3.11 bin/box_data/add-box-item.py
-
-update-box-db :
-	python3.11 bin/box_data/update-box-db.py
+vga-notify:
+	BOT_ENV=.env.vga uv run bot-notify
